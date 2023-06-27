@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.poi.test.mappers.EmployeeMapper">
+    <select id="getList" resultType="com.poi.test.dto.Employee">
+        SELECT EMPLOYEE_ID
+             , NAME
+             , RANK
+             , CAREER
+             , AGE
+          FROM EMPLOYEE_MST
+    </select>
+
+    <insert id="insertEmployee" parameterType="com.poi.test.dto.Employee">
+        INSERT INTO EMPLOYEE_MST
+        (
+            NAME,
+            RANK,
+            CAREER,
+            AGE
+        ) VALUES (
+            #{name},
+            #{rank},
+            #{career},
+            #{age}
+        )
+    </insert>
+
+    <insert id="insertEmployees" parameterType="java.util.List">
+        INSERT INTO EMPLOYEE_MST
+        (
+            NAME,
+            RANK,
+            CAREER,
+            AGE
+        ) VALUES
+        <foreach item="item" index="index" collection="list">
+        (
+            "${item.name}",
+            "${item.rank}",
+            ${item.career},
+            ${item.age}
+        )
+        </foreach>
+
+    </insert>
+</mapper>
